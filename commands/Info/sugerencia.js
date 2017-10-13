@@ -1,24 +1,26 @@
-const { Command, util } = require('klasa');
+const { Command } = require('klasa');
 
 module.exports = class extends Command {
 
     constructor(...args) {
         super(...args, {
             name: 'sugerencia',
-            enabled: true,
             runIn: ['text'],
-			requiredSettings: ['SugerenciasBot'],
-            permLevel: 0,
-            description: 'Pone una sugerencia en el canal que hallas selceccionado en la configuraci�n.',
-            usage: '<titulo:str>  <desc:str>'
+            requiredSettings: ['SugerenciasBot'],
+            description: 'Pone una sugerencia en el canal que hallas selceccionado en la configuración.',
+            usage: '<titulo:str>  <desc:str> [...]',
+            usageDelim: ' '
         });
     }
-	
+
 
     async run(msg, [titulo, ...desc]) {
-        const Sugerencias = msg.guild.settings.SugerenciasBot;
-		
-		return msg.guild.channels.get(Sugerencias).send(':heavy_minus_sign: :heavy_minus_sign: :heavy_minus_sign: \n **Titulo:** ' + titulo + '\n \n **Descripcion:** ' + desc + '\n \n :heavy_minus_sign: :heavy_minus_sign: :heavy_minus_sign: ');
+        const canal = msg.guild.channels.get(msg.guild.settings.SugerenciasBot);
+
+        if (!canal || canal.postable === false)
+            return msg.send('Por favor, reestablezca un canal, ya que éste ha sido borrado o no puedo mandar mensajes en él.');
+
+        return canal.send(`➖➖➖\n**Titulo:** ${titulo}\n\n**Descripcion:** ${desc.join(' ')}\n\n ➖➖➖`);
     }
 
 };
