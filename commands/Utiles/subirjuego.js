@@ -10,7 +10,9 @@ var MessageVar4 = [];
 var MessageVar5 = [];
 var MessageVar6 = [];
 var CollectedVar = [];
+var CollectedVar1 = [];
 var CollectedVar2 = [];
+var CollectedVar3 = [];
 var res = [];
 
 module.exports = class extends Comando {
@@ -20,9 +22,9 @@ module.exports = class extends Comando {
             name: 'subirjuego',
             enabled: true,
             runIn: ['text'],
-            description: 'Crea y sube un juego a la base de datos de Bit.',
-            extendedHelp: '+crearjuego',
-            comando: '+crearjuego'
+            description: 'Subir un juego a la base de datos de Bit.',
+            extendedHelp: '+subirjuego',
+            comando: '+subirjuego'
         });
     }
     async run(msg, [...Nombrea]) {
@@ -32,7 +34,7 @@ module.exports = class extends Comando {
           
 	  const MySql = this.client.providers.get('MySQL');
 
-	    res[msg.author.id] = msg.channel.send("¡Hola! soy Bit. Responde a las siguientes preguntas para subir un juego a mi base de datos.");
+	    res[msg.author.id] = msg.channel.send("ï¿½Hola! soy Bit. Responde a las siguientes preguntas para subir un juego a mi base de datos.");
         msg.channel.send(msg.author + ` Nombre del juego:`).then(message => {writeCollectedVar(message, msg.author);});
 
         const filter = m => m.author.id === msg.author.id;
@@ -68,7 +70,7 @@ module.exports = class extends Comando {
         } else if (typeof validUrl.isUri(MessageVar2[msg.author.id]) == "undefined") {
             while(typeof validUrl.isUri(MessageVar2[msg.author.id]) == "undefined") {
                 msg.channel.send("La URL tiene que ser valida").then(message => {writeCollectedVar2(message, msg.author);});
-                msg.channel.send(msg.author + ` URL de descarga del juego:`).then(message => {writeCollectedVar(message, msg.author);});
+                msg.channel.send(msg.author + ` URL de descarga del juego:`).then(message => {writeCollectedVar1(message, msg.author);});
                 await msg.channel.awaitMessages(filter, { max: 1}).then(collected => {writeMessageVar2(collected.last().content, msg.author); collected.last().delete();});
                 if(MessageVar2[msg.author.id] == 'cancelar') {
                     msg.channel.send(msg.author + ` Ha cancelado la subida.`);
@@ -91,20 +93,20 @@ module.exports = class extends Comando {
         } else if (typeof validUrl.isUri(MessageVar3[msg.author.id]) == "undefined") {
             while(typeof validUrl.isUri(MessageVar3[msg.author.id]) == "undefined") {
                 msg.channel.send("La URL tiene que ser valida").then(message => {writeCollectedVar2(message, msg.author);});
-                msg.channel.send(msg.author + ` Sitio Web:`).then(message => {writeCollectedVar(message, msg.author);});
+                msg.channel.send(msg.author + ` Sitio Web:`).then(message => {writeCollectedVar1(message, msg.author);});
                 await msg.channel.awaitMessages(filter, { max: 1}).then(collected => {writeMessageVar3(collected.last().content, msg.author); collected.last().delete();});
                 if(MessageVar3[msg.author.id] == 'cancelar') {
                     msg.channel.send(msg.author + ` Ha cancelado la subida.`);
                     return true;
                 }
-                CollectedVar[msg.author.id].delete();
+                CollectedVar1[msg.author.id].delete();
                 CollectedVar2[msg.author.id].delete();
             }
         } else {
             CollectedVar[msg.author.id].delete();
         }
 
-        msg.channel.send(msg.author + ` Género:`).then(message => {writeCollectedVar(message, msg.author);});
+        msg.channel.send(msg.author + ` GÃ©nero:`).then(message => {writeCollectedVar(message, msg.author);});
 
         await msg.channel.awaitMessages(filter, { max: 1}).then(collected => {writeMessageVar4(collected.last().content, msg.author); collected.last().delete();});
 
@@ -123,6 +125,26 @@ module.exports = class extends Comando {
             msg.channel.send(msg.author + ` Ha cancelado la subida.`);
             return true;
         } else {
+            if(validarFormatoFecha(MessageVar5[msg.author.id])){
+                if(existeFecha(MessageVar5[msg.author.id])){
+                }else{
+                      while(existeFecha(MessageVar5[msg.author.id]) != true && validarFechaMenorActual(MessageVar5[msg.author.id]) != true) {
+                        msg.channel.send("La fecha no existe o todavia no ha llegado, tiene que ser una fecha menor o igual a la de hoy.").then(message => {writeCollectedVar1(message, msg.author)});
+                        msg.channel.send(msg.author + ` Fecha de lanzamiento:`).then(message => {writeCollectedVar3(message, msg.author);});
+                        await msg.channel.awaitMessages(filter, { max: 1}).then(collected => {writeMessageVar5(collected.last().content, msg.author); collected.last().delete();});
+                        CollectedVar1[msg.author.id].delete();
+                        CollectedVar3[msg.author.id].delete();
+                      }
+                }
+            }else{
+                while(validarFormatoFecha(MessageVar5[msg.author.id]) != true || existeFecha(MessageVar5[msg.author.id]) != true) {
+                    msg.channel.send("El formato o la fecha son incorrectos: el formato tiene que ser dd/mm/yyyy.").then(message => {writeCollectedVar2(message, msg.author)});
+                    msg.channel.send(msg.author + ` Fecha de lanzamiento:`).then(message => {writeCollectedVar3(message, msg.author);});
+                    await msg.channel.awaitMessages(filter, { max: 1}).then(collected => {writeMessageVar5(collected.last().content, msg.author); collected.last().delete();});
+                    CollectedVar2[msg.author.id].delete();
+                    CollectedVar3[msg.author.id].delete();
+                }
+            }
             CollectedVar[msg.author.id].delete();
         }
 
@@ -178,6 +200,38 @@ function writeMessageVar6(message, messageAuthor) {
 function writeCollectedVar(collected, messageAuthor) {
     CollectedVar[messageAuthor.id] = collected;
 };
+function writeCollectedVar1(collected, messageAuthor) {
+    CollectedVar1[messageAuthor.id] = collected;
+};
 function writeCollectedVar2(collected, messageAuthor) {
     CollectedVar2[messageAuthor.id] = collected;
+};
+function writeCollectedVar3(collected, messageAuthor) {
+    CollectedVar3[messageAuthor.id] = collected;
+};
+function existeFecha2 (fecha) {
+    var fechaf = fecha.split("/");
+    var d = fechaf[0];
+    var m = fechaf[1];
+    var y = fechaf[2];
+    return m > 0 && m < 13 && y > 0 && y < 32768 && d > 0 && d <= (new Date(y, m, 0)).getDate();
+}
+function validarFormatoFecha(campo) {
+    var RegExPattern = /^\d{1,2}\/\d{1,2}\/\d{4}$/;
+    if ((campo.match(RegExPattern)) && (campo!='')) {
+          return true;
+    } else {
+          return false;
+    }
+};
+function validarFechaMenorActual(date){
+    var x=new Date();
+    var fecha = date.split("/");
+    x.setFullYear(fecha[2],fecha[1]-1,fecha[0]);
+    var today = new Date();
+
+    if (x >= today)
+      return false;
+    else
+      return true;
 };

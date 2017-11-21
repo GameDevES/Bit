@@ -1,4 +1,4 @@
-const { Command } = require('klasa');
+const Comando = require('../../estructuras/Comando');
 const Discord = require('discord.js');
 var MessageVar0 = [];
 var MessageVar1 = [];
@@ -10,7 +10,7 @@ var CollectedVar = [];
 var mensajeInicio = [];
 var res = [];
 
-module.exports = class extends Command {
+module.exports = class extends Comando {
 
     constructor(...args) {
         super(...args, {
@@ -21,10 +21,9 @@ module.exports = class extends Command {
             requiredSettings: ['perfiles'],
             description: 'Crea una carta de presentación de un proyecto/perfil que se enviará al canal #proyectos / #perfiles, para cancelar una entrevista escribe: cancelar',
             usage: '<tipo:str> [...]',
-            extendedHelp: '+crear proyecto'
+            extendedHelp: '+crear proyecto',
+            comando: '+crear <proyecto/perfil>'
         });
-        this.comando = '+crear <proyecto/perfil profesional>';
-        this.admins = false;
     }
     async run(msg, [...tipo]) {
             const canal = msg.guild.channels.get(msg.guild.settings.perfiles);
@@ -110,11 +109,12 @@ module.exports = class extends Command {
                   .setThumbnail(msg.author.avatarURL())
                   .addField(`Usuario`, msg.author)
                   .addField(`Nombre del proyecto:`, MessageVar0[msg.author.id])
-                  .addField(`Descripción:`, MessageVar4[msg.author.id])
+                  .addField(`Descripción:`, MessageVar5[msg.author.id])
                   .addField(`Roles que busco: `, MessageVar1[msg.author.id])
                   .addField(`Tamaño máximo del equipo: `, MessageVar2[msg.author.id])
                   .addField(`Compensación: `, MessageVar3[msg.author.id])
-                  .addField(`Responsabilidades:`, MessageVar4[msg.author.id]);
+                  .addField(`Responsabilidades:`, MessageVar4[msg.author.id])
+                  .setAuthor(msg.author);
 
                 canalp.send(embedEncuesta).then(message => {message.react("\uD83D\uDD90")});
                 msg.channel.send(msg.author + " Tu proyecto ha sido enviado a " + canalp + ".").then(message => writeCollectedVar(message, msg.author));
@@ -193,6 +193,7 @@ module.exports = class extends Command {
                   .addField(`Mi especialidad: `, MessageVar2[msg.author.id])
                   .addField(`Experiencia: `, MessageVar3[msg.author.id])
                   .addField(`Tipos de proyectos que busco: `, MessageVar4[msg.author.id])
+                  .setAuthor(msg.author);
 
                 canal.send(embedEncuesta2);
                 msg.channel.send(msg.author + " Tu proyecto ha sido enviado a " + canal + ".").then(message => writeCollectedVar(message, msg.author));
