@@ -1,7 +1,7 @@
-const { Command } = require('klasa');
+const Comando = require('../../estructuras/Comando');
 const fs = require("fs");
 
-module.exports = class extends Command {
+module.exports = class extends Comando {
 
     constructor(...args) {
         super(...args, {
@@ -9,7 +9,8 @@ module.exports = class extends Command {
             enabled: true,
             runIn: ['text'],
             cooldown: 3,
-            description: 'Crea un separador.'
+            description: 'Crea un separador.',
+	    usage: '<tipo:str>'
         });
     }
 

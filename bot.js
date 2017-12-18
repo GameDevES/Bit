@@ -8,30 +8,34 @@ const chalk = require('chalk');
 var log = require("./log.json");
 const fs = require("fs");
 
-perm = new PermissionLevels()
-
-	.addLevel(3, false, (client, msg) => msg.guild.roles.exists('name', 'Usuario') );
-
 const bot = require("./src/imp");
 
 var exports = module.exports = {};
 
 const app = express();
 
+klasa.Client.defaultPermissionLevels
+
+	.addLevel(3, false, (client, msg) => msg.member.roles.exists('name', 'Usuario') )
+	.addLevel(4, false, (client, msg) => msg.member.roles.exists('name', 'Moderador') || msg.member.roles.exists('name', 'Administrador') );
+
 const client = new klasa.Client({
-    perm,
     clientOptions: {
         fetchAllMembers: false
     },
     prefix: '+',
     cmdEditing: true,
     typing: true,
+    ownerID: 207164528222404608,
     readyMessage: (client) => `${client.user.tag}, Ready to serve ${client.guilds.size} guilds and ${client.users.size} users`
 });
+
 
 client.login(config.token);
 
 var maintenanceStatus = config.maintenance;
+
+exports.mantBot = maintenanceStatus;
 
 app.set('view engine', 'ejs');
 
@@ -63,8 +67,10 @@ exports.mant = function (/**boolean*/mantbool) {
 	bot.maintenance(mantbool);
 	if(mantbool == true) {
 		maintenanceStatus = true;
+		exports.mantBot = maintenanceStatus;
 	} else {
 		maintenanceStatus = false;
+		exports.mantBot = maintenanceStatus;
 	}
 }
 
