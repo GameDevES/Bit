@@ -16,8 +16,6 @@ export const config: KlasaClientOptions = {
 	language: 'es-ES',
 	// The default configurable prefix for each guild
 	prefix: '+',
-	// If custom settings should be preserved when a guild removes your bot
-	preserveSettings: true,
 	// If your bot should be able to mention @everyone
 	disableEveryone: false,
 	// The time in ms to add to ratelimits, to ensure you wont hit a 429 response
@@ -42,7 +40,7 @@ export const config: KlasaClientOptions = {
 	/**
 	 * Sharding Options
 	 */
-	shardCount: 0,
+	shardCount: 1,
 
 	/**
 	 * Command Handler Options
@@ -158,15 +156,6 @@ export const config: KlasaClientOptions = {
 			warn: { time: { background: 'lightyellow', text: 'black' } },
 			wtf: { message: { text: 'red' }, time: { background: 'red' } }
 		}
-	},
-
-	/**
-	 * Custom Setting Gateway Options
-	 */
-	gateways: {
-		guilds: {},
-		users: {},
-		clientStorage: {}
 	},
 
 	/**
