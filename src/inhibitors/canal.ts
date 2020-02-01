@@ -1,5 +1,5 @@
 import { Inhibitor, InhibitorStore, KlasaMessage } from 'klasa';
-import { Channel } from 'discord.js';
+import { TextChannel } from 'discord.js';
 
 export default class extends Inhibitor {
 
@@ -10,9 +10,9 @@ export default class extends Inhibitor {
 	public run(message: KlasaMessage) {
 		if (message.author.bot === false) {
 			let debeMandarMensaje = false;
-			const activados = message.guild?.settings.get('canales.activados') as Channel[];
+			const activados = message.guild?.settings.get('canales.activados') as TextChannel[];
 			for (const activado of activados) {
-				if (message.channel === activado) {
+				if ((message.channel as TextChannel).equals(activado)) {
 					debeMandarMensaje = true;
 				}
 			}

@@ -12,7 +12,7 @@ Canvas
 
 KlasaClient.defaultGuildSchema
 	.add('canales', modFolder => {
-		modFolder.add('activados', 'channel', { array: true, resolve: true });
+		modFolder.add('activados', 'TextChannel', { array: true, resolve: true });
 	});
 
 export class IndexKlasaClient extends KlasaClient {
