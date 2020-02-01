@@ -1,4 +1,4 @@
-import { Inhibitor, InhibitorStore, KlasaMessage, SettingsValue } from 'klasa';
+import { Inhibitor, InhibitorStore, KlasaMessage } from 'klasa';
 import { TextChannel } from 'discord.js';
 
 export default class extends Inhibitor {
