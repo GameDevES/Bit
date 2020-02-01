@@ -10,6 +10,11 @@ Canvas
 	.registerFont(join(__dirname, '..', '..', 'assets', 'fonts', 'whitney-booksc.otf'), { family: 'whitney-booksc' })
 	.registerFont(join(__dirname, '..', '..', 'assets', 'fonts', 'whitney-medium.otf'), { family: 'whitney-medium' });
 
+KlasaClient.defaultGuildSchema
+	.add('canales', modFolder => {
+		modFolder.add('activados', 'channel', { array: true, resolve: true });
+	});
+
 export class IndexKlasaClient extends KlasaClient {
 
 	public constructor(options: KlasaClientOptions) {
