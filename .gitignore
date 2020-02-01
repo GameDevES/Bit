@@ -4,5 +4,4 @@ dist
 .vscode
 
 # Package locks
-yarn.lock
 package-lock.json
