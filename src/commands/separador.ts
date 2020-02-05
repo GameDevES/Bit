@@ -31,12 +31,12 @@ export default class extends BitCommand {
 			canvas.setColor('#FFAE23');
 			canvas.setTextFont('28px Impact');
 			canvas.toBuffer();
-			const attachment: MessageAttachment = new MessageAttachment(canvas.toBuffer());        
+			const attachment: MessageAttachment = new MessageAttachment(canvas.toBuffer());
 			await canal.send(attachment);
 			await message.delete({ timeout: 2000 });
-		}else{
-		await canal.send('Solo puedes usar el separador 1 & 2.');	
-		await message.delete();
+		} else {
+			await canal.send('Solo puedes usar el separador 1 & 2.');
+			await message.delete();
 		}
 		return true;
 	}
