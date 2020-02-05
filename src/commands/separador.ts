@@ -23,10 +23,10 @@ export default class extends BitCommand {
 		}
 		const canal = message;
 		const numerosepf: number = +`${numerosep.join()}`;
-		if (numerosepf < 3 && numerosepf !> 0 ) {
-		const image = await fsn.readFile('./img/separadores/Separador_'+ numerosepf +'.png');
-        // Creación del canvas. º
-		const canvas:Canvas = new Canvas(400,39)
+		if (numerosepf < 3 && numerosepf ! > 0 ) {
+			const image = await fsn.readFile('./img/separadores/Separador_' + numerosepf + '.png');
+			// Creación del canvas.
+			const canvas: Canvas = new Canvas(400,39)
 		canvas.addImage(image,0,0,400,39)
 		canvas.setColor('#FFAE23')
 		canvas.setTextFont('28px Impact')
