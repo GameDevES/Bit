@@ -26,14 +26,12 @@ export default class extends BitCommand {
 		if (numerosepf < 3 && numerosepf ! > 0 ) {
 			const image = await fsn.readFile('./img/separadores/Separador_' + numerosepf + '.png');
 			// Creación del canvas.
-			const canvas: Canvas = new Canvas(400, 39)
-			canvas.addImage(image, 0, 0, 400, 39)
-			canvas.setColor('#FFAE23')
-			canvas.setTextFont('28px Impact')
+			const canvas: Canvas = new Canvas(400, 39);
+			canvas.addImage(image, 0, 0, 400, 39);
+			canvas.setColor('#FFAE23');
+			canvas.setTextFont('28px Impact');
 			canvas.toBuffer();
-			const attachment:MessageAttachment = new MessageAttachment(canvas.toBuffer());
-        
-        
+			const attachment: MessageAttachment = new MessageAttachment(canvas.toBuffer());        
 			await canal.send(attachment);
 			await message.delete({ timeout: 2000 });
 		}else{
