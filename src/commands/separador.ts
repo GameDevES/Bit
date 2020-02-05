@@ -24,7 +24,7 @@ export default class extends BitCommand {
 		const canal = message;
 		const numerosepf = Number(`${numerosep.join()}`);
 		if (numerosepf < 3 && numerosepf > 0) {
-			const image = await fsn.readFile('./img/separadores/Separador_' + `${numerosep.join()}` + '.png');
+			const image = await fsn.readFile(`./img/separadores/Separador_${numerosep.join()}.png`);
 			// Creación del canvas.
 			const canvas: Canvas = new Canvas(400, 39);
 			canvas.addImage(image, 0, 0, 400, 39);
