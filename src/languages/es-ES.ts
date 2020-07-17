@@ -4,9 +4,9 @@ import friendlyDuration from '../utils/FriendlyDuration';
 import { Language, version as klasaVersion, LanguageStore } from 'klasa';
 
 export const enum Emojis {
-	GreenTick = '<:greenTick:637706251253317669>',
-	Loading = '<a:sloading:656988867403972629>',
-	RedCross = '<:redCross:637706251257511973>',
+	GreenTick = '<:aprobado:637706251253317669>',
+	Loading = '<:bitconfundido:374652105623076865>',
+	RedCross = '<:denegado:637706251257511973>',
 	Shiny = '<:shiny:612364146792726539>'
 }
 
