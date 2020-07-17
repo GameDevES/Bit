@@ -18,7 +18,7 @@ export default class extends BitCommand {
 	}
 
 	public async run(message: KlasaMessage, [...numerosep]: [number]) {
-		if ((message.guild?.channels.get(message.guild.settings.get('canales.sugerenciasbot') as string) as Channel).type.localeCompare('text')) {
+		if ((message.guild!.channels.get(message.guild!.settings.get('canales.sugerenciasbot') as string) as Channel).type.localeCompare('text')) {
 			return message.send('Por favor, reestablezca un canal, ya que éste ha sido borrado o no puedo mandar mensajes en él.');
 		}
 		const canal = message;

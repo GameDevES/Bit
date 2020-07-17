@@ -8,8 +8,7 @@
     "test:lint": "eslint --ext ts src",
     "build": "tsc -p .",
     "watch": "tsc -p . -w",
-    "start": "node dist/src/index.js",
-    "aaa": "tsc --version"
+    "start": "node dist/src/index.js"
   },
   "keywords": [],
   "author": "SeaOfThievesES",
