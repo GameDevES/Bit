@@ -36,20 +36,20 @@ export default class extends BitCommand {
 				util.isFunction(command.extendedHelp) ? command.extendedHelp(message.language) : command.extendedHelp
 			], { code: 'asciidoc' });
 		}
-		if (!('all' in message.flags) && message.guild && (message.channel as TextChannel).permissionsFor(this.client.user!)!.has(PERMISSIONS_RICHDISPLAY)) {
-			const previousHandler = this.handlers.get(message.author.id);
+		if (!('all' in message.flagArgs) && message.guild && (message.channel as TextChannel).permissionsFor(this.client.user!)!.has(PERMISSIONS_RICHDISPLAY)) {
+			const previousHandler = this.handlers.get(message.author!.id);
 			if (previousHandler) previousHandler.stop();
 
 			const handler = await (await this.buildDisplay(message)).run(await message.send('Loading Commands...'), {
-				filter: (reaction, user) => user.id === message.author.id,
+				filter: (reaction, user) => user.id === message.author!.id,
 				time
 			});
-			handler.on('end', () => this.handlers.delete(message.author.id));
-			this.handlers.set(message.author.id, handler);
+			handler.on('end', () => this.handlers.delete(message.author!.id));
+			this.handlers.set(message.author!.id, handler);
 			return handler;
 		}
 
-		return message.author.send(await this.buildHelp(message), { split: { 'char': '\n' } })
+		return message.author!.send(await this.buildHelp(message), { split: { 'char': '\n' } })
 			.then(async () => { if (message.channel.type !== 'dm') await message.sendMessage(message.language.get('COMMAND_HELP_DM')); })
 			.catch(async () => { if (message.channel.type !== 'dm') await message.sendMessage(message.language.get('COMMAND_HELP_NODM')); });
 	}

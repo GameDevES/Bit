@@ -17,7 +17,7 @@
     "@klasa/utils": "^0.0.4",
     "canvas": "^2.6.1",
     "canvas-constructor": "3.2.0",
-    "discord.js": "github:discordjs/discord.js#master",
+    "discord.js": "github:discordjs/discord.js#ea8b4e73559d118a826ac3b242c1a3626b4f6d29",
     "klasa": "github:dirigeants/klasa#settings",
     "klasa-dashboard-hooks": "github:kyranet/klasa-dashboard-hooks#master",
     "node-fetch": "^2.6.0",

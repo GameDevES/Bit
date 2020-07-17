@@ -5,10 +5,7 @@
 		"target": "es2020",
 		"types": [
 			"node",
-			"node-fetch",
-			"discord.js",
-			"klasa",
-			"klasa-dashboard-hooks"
+			"node-fetch"
 		],
 		"baseUrl": ".",
 		"paths": {

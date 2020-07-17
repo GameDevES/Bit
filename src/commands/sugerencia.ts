@@ -47,7 +47,7 @@ export default class extends BitCommand {
 
 		const embedSugerencia = new MessageEmbed()
 			.setColor(0x3785df)
-			.setAuthor(message.author.username, message.author.avatarURL() as string)
+			.setAuthor(message.author!.username, message.author!.avatarURL() as string)
 			.setTitle(`${titulo}`)
 			.setURL('http://gamedev.es')
 			.setDescription(`${desc}`)
