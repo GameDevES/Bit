@@ -1,4 +1,4 @@
-import { BitCommand } from '../utils/BitCommand';
+import { BitCommand } from '../../utils/BitCommand';
 import { CommandStore, KlasaMessage } from 'klasa';
 import { Channel, TextChannel, MessageEmbed } from 'discord.js';
 
